@@ -52,6 +52,7 @@ Response
 ```
 <name>master</name><dbid>1</dbid><sid>AQ==</sid><mode>0</mode><status>65544</status><status2>
 ```
+**Note**: The querie will not work if PATH("") was writed with double quotes. 
 
 ## Inspired by
 * https://blog.improsec.com/tech-blog/dangers-mssql-features-impersonation-amp-links
