@@ -91,15 +91,25 @@ select convert(int,@@version)
 ```
 select PARSE(@@version as int)
 ```
+### Data Output Format
+* FOR JSON/XML PATH
+Querie
+```
+SELECT name FROM master..syslogins FOR XML PATH
+```
+Result
+```
+[{"name":"sa"},{"name":"##MS_SQLResourceSigningCertificate##"},{"name":"##MS_SQLReplicationSigningCertificate##"},{"name":"##MS_SQLAuthenticatorCertificate##"},{"name":"##MS_PolicySigningCertificate##"},{"name":"##MS_SmoExtendedSigningCertificate##"},{"name":"##MS_PolicyEventProcessingLogin##"},{"name":"##MS_PolicyTsqlExecutionLogin##"},{"name":"##MS_AgentSigningCertificate##"},{"name":"BUILTIN\\Administrators"},{"name":"NT AUTHORITY\\SYSTEM"},{"name":"NT AUTHORITY\\NETWORK SERVICE"}]
+```
 
 ## Inspired by
 * https://blog.improsec.com/tech-blog/dangers-mssql-features-impersonation-amp-links
 * https://www.madeiradata.com/post/how-to-protect-sql-server-from-hackers-and-penetration-tests
 
 ## Resources
+* https://www.sqlservertutorial.net/
 * https://github.com/ktaranov/sqlserver-kit
 * https://github.com/quentinhardy/msdat
-
 
 ## Local Lab
 Docker instance
