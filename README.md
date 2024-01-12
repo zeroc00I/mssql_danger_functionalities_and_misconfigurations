@@ -52,7 +52,15 @@ Response
 ```
 <name>master</name><dbid>1</dbid><sid>AQ==</sid><mode>0</mode><status>65544</status><status2>
 ```
-**Note**: The querie will not work if PATH("") was writed with double quotes. 
+## Concepts
+
+### Aspas duplas e simples são tratadas de diferentes formas no MSSQL
+
+A razão pela qual SELECT DB_NAME('1') funciona e SELECT DB_NAME("1") não funciona é que as aspas duplas não são interpretadas da mesma maneira que as aspas simples em SQL Server.
+
+Quando você usa aspas duplas, o SQL Server as trata como um delimitador de identificadores de objetos, não como delimitadores de strings. No caso da função DB_NAME, ela espera uma string como argumento, e essa string deve ser delimitada por aspas simples.
+
+Dessa forma, a função DB_NAME recebe corretamente a string "1" como argumento. Se você tentar usar aspas duplas, o SQL Server interpretará isso como um identificador de objeto e resultará em um erro.
 
 ## Inspired by
 * https://blog.improsec.com/tech-blog/dangers-mssql-features-impersonation-amp-links
