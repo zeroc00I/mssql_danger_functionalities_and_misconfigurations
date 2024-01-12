@@ -92,15 +92,16 @@ select convert(int,@@version)
 select PARSE(@@version as int)
 ```
 ### Data Output Format
-* FOR JSON/XML PATH
+* FOR JSON/XML AUTO
 Querie
 ```
-SELECT name FROM master..syslogins FOR XML PATH
+SELECT name FROM master..syslogins FOR JSON AUTO
 ```
 Result
 ```
 [{"name":"sa"},{"name":"##MS_SQLResourceSigningCertificate##"},{"name":"##MS_SQLReplicationSigningCertificate##"},{"name":"##MS_SQLAuthenticatorCertificate##"},{"name":"##MS_PolicySigningCertificate##"},{"name":"##MS_SmoExtendedSigningCertificate##"},{"name":"##MS_PolicyEventProcessingLogin##"},{"name":"##MS_PolicyTsqlExecutionLogin##"},{"name":"##MS_AgentSigningCertificate##"},{"name":"BUILTIN\\Administrators"},{"name":"NT AUTHORITY\\SYSTEM"},{"name":"NT AUTHORITY\\NETWORK SERVICE"}]
 ```
+* Note: "JSON PATH" é muito referenciado, mas ele é mais utilizado quando se está construindo uma querie e deseja formatar como será a saída do JSON. 
 
 ## Inspired by
 * https://blog.improsec.com/tech-blog/dangers-mssql-features-impersonation-amp-links
