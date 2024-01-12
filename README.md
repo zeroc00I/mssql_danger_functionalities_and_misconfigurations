@@ -75,6 +75,23 @@ https://www.mssqltips.com/sqlservertip/6422/sql-server-concepts/
 ![](https://www.mssqltips.com/tipimages2/6874_cast-sql-function.002.png)
 https://www.mssqltips.com/sqlservertip/6874/sql-cast-function-for-data-type-conversions/
 
+### Casting datas
+#### CAST
+* CAST function that is an ANSI standard and is cross platform compatible
+```
+select cast(@@version as int)
+```
+#### CONVERT
+* The convert function is specific to Microsoft's T-SQL and will not function properly on other DBMSs, unlike the CAST function that is an ANSI standard and is cross platform compatible
+```
+select convert(int,@@version)
+```
+#### PARSE
+* This function, like the CAST and CONVERT, return an expression translated to the requested data type. PARSE works fine converting from string to date/time and number types.
+```
+select PARSE(@@version as int)
+```
+
 ## Inspired by
 * https://blog.improsec.com/tech-blog/dangers-mssql-features-impersonation-amp-links
 * https://www.madeiradata.com/post/how-to-protect-sql-server-from-hackers-and-penetration-tests
@@ -82,6 +99,7 @@ https://www.mssqltips.com/sqlservertip/6874/sql-cast-function-for-data-type-conv
 ## Resources
 * https://github.com/ktaranov/sqlserver-kit
 * https://github.com/quentinhardy/msdat
+
 
 ## Local Lab
 Docker instance
