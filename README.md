@@ -39,7 +39,7 @@ Host: hack-yourself-first.com
 ```
 ## Concepts
 
-### Aspas duplas e simples são tratadas de diferentes formas no MSSQL
+### Double and single quotes are treated differently in MSSQL
 
 The reason why ```SELECT DB_NAME('1')``` works and ```SELECT DB_NAME("1")``` does not work is that double quotes are not interpreted the same way as single quotes in SQL Server.
 
