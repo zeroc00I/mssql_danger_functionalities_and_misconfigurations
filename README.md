@@ -62,6 +62,19 @@ Quando você usa aspas duplas, o SQL Server as trata como um delimitador de iden
 
 Dessa forma, a função DB_NAME recebe corretamente a string "1" como argumento. Se você tentar usar aspas duplas, o SQL Server interpretará isso como um identificador de objeto e resultará em um erro.
 
+### Structure
+Master – All system objects to run the active relational database management system
+Model – Template database for new user defined databases and Tempdb when SQL Server starts
+TempDB – Stores all temporary objects such as #temp tables, ##temp tables, hash and sort records, etc.
+MSDB – Stores all SQL Server Agent related tables and stored procedures
+ResourceDB – Hidden and read-only database that includes all system objects
+
+https://www.mssqltips.com/sqlservertip/6422/sql-server-concepts/
+
+### Data types
+![](https://www.mssqltips.com/tipimages2/6874_cast-sql-function.002.png)
+https://www.mssqltips.com/sqlservertip/6874/sql-cast-function-for-data-type-conversions/
+
 ## Inspired by
 * https://blog.improsec.com/tech-blog/dangers-mssql-features-impersonation-amp-links
 * https://www.madeiradata.com/post/how-to-protect-sql-server-from-hackers-and-penetration-tests
