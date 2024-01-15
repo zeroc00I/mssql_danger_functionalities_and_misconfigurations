@@ -113,6 +113,11 @@ select text from sys.dm_exec_requests cross apply sys.dm_exec_sql_text(sql_handl
 **CAUTION**
 The following query should be executed with caution as it has the potential to impact the performance of MSSQL, depending on the size of the table entries returned. It is recommended to run it only when there is confidence that the returned row isn't excessively long.
 
+### To figure out if impersonation is used on your SQL servers, and who can impersonate who, you can use the query below 
+```
+SELECT grantee_principal.name AS WhoCanImpersonate ,grantee_principal.type_desc AS ImpersonatorType ,sp.name AS WhoCanTheyImpersonate ,sp.type_desc AS ImpersonateeLoginType FROM sys.server_permissions AS prmssn INNER JOIN sys.server_principals AS sp ON sp.principal_id = prmssn.major_id AND prmssn.class = 101 INNER JOIN sys.server_principals AS grantee_principal ON grantee_principal.principal_id = prmssn.grantee_principal_id WHERE prmssn.state = 'G'
+```
+
 ### DUMP all in one shot using XML
 Request (for JSON auto could be also used)
 ```
@@ -131,6 +136,8 @@ Response
 * https://www.sqlservertutorial.net/
 * https://github.com/ktaranov/sqlserver-kit
 * https://github.com/quentinhardy/msdat
+* https://blog.improsec.com/tech-blog/dangers-mssql-features-impersonation-amp-links
+* https://web.archive.org/web/20220331031141/https://www.allenkinsel.com/archive/2013/12/finding-impersonation-info-in-sql-server/
 
 ## Local Lab
 Docker instance
