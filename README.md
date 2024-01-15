@@ -60,6 +60,8 @@ https://www.mssqltips.com/sqlservertip/6422/sql-server-concepts/
 * The primary identity is the login itself. The secondary identity includes permissions inherited from roles and groups.
 * Every database user belongs to the public database role. When a user has not been granted or denied specific permissions on a securable, the user inherits the permissions granted to public on that securable. (https://learn.microsoft.com/en-us/previous-versions/sql/sql-server-2008-r2/ms181127(v=sql.105))
 
+#### SQL Link
+* A SQL link from one SQL server to another simply enables you to perform queries against it. This is valuable if you need to collect and present data stored in multiple databases spread over multiple SQL servers (https://blog.improsec.com/tech-blog/dangers-mssql-features-impersonation-amp-links).
 
 ### Data types
 ![](https://www.mssqltips.com/tipimages2/6874_cast-sql-function.002.png)
