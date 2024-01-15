@@ -118,6 +118,10 @@ The following query should be executed with caution as it has the potential to i
 SELECT grantee_principal.name AS WhoCanImpersonate ,grantee_principal.type_desc AS ImpersonatorType ,sp.name AS WhoCanTheyImpersonate ,sp.type_desc AS ImpersonateeLoginType FROM sys.server_permissions AS prmssn INNER JOIN sys.server_principals AS sp ON sp.principal_id = prmssn.major_id AND prmssn.class = 101 INNER JOIN sys.server_principals AS grantee_principal ON grantee_principal.principal_id = prmssn.grantee_principal_id WHERE prmssn.state = 'G'
 ```
 
+## How permissions works
+* The primary identity is the login itself. The secondary identity includes permissions inherited from roles and groups.
+* Every database user belongs to the public database role. When a user has not been granted or denied specific permissions on a securable, the user inherits the permissions granted to public on that securable. (https://learn.microsoft.com/en-us/previous-versions/sql/sql-server-2008-r2/ms181127(v=sql.105))
+
 ### DUMP all in one shot using XML
 Request (for JSON auto could be also used)
 ```
