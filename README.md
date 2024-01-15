@@ -63,6 +63,26 @@ https://www.mssqltips.com/sqlservertip/6422/sql-server-concepts/
 #### SQL Link
 * A SQL link from one SQL server to another simply enables you to perform queries against it. This is valuable if you need to collect and present data stored in multiple databases spread over multiple SQL servers (https://blog.improsec.com/tech-blog/dangers-mssql-features-impersonation-amp-links).
 
+#### Grant permissions from user A to user B
+
+```
+CREATE LOGIN bruno WITH PASSWORD = 'Test@4567';
+```
+
+```
+CREATE USER bruno FOR LOGIN bruno;
+```
+
+* List users that can be impersonated
+```
+SELECT grantee_principal.name AS WhoCanImpersonate ,grantee_principal.type_desc AS ImpersonatorType ,sp.name AS WhoCanTheyImpersonate ,sp.type_desc AS ImpersonateeLoginType FROM sys.server_permissions AS prmssn INNER JOIN sys.server_principals AS sp ON sp.principal_id = prmssn.major_id AND prmssn.class = 101 INNER JOIN sys.server_principals AS grantee_principal ON grantee_principal.principal_id = prmssn.grantee_principal_id WHERE prmssn.state = 'G'
+```
+
+Result:
+|WhoCanImpersonate|ImpersonatorType|WhoCanTheyImpersonate|ImpersonateeLoginType|
+|-----------------|----------------|---------------------|---------------------|
+|bruno            |SQL_LOGIN       |sa                   |SQL_LOGIN            |
+
 ### Data types
 ![](https://www.mssqltips.com/tipimages2/6874_cast-sql-function.002.png)
 https://www.mssqltips.com/sqlservertip/6874/sql-cast-function-for-data-type-conversions/
