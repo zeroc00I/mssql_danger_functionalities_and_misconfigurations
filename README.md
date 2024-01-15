@@ -1,4 +1,4 @@
-# mssql_danger_functionalities_and_misconfigurations
+# MSSQL - Danger functionalities and misconfigurations
 
 ## Techniques
 ### Time Based
@@ -90,6 +90,13 @@ Result:
 |WhoCanImpersonate|ImpersonatorType|WhoCanTheyImpersonate|ImpersonateeLoginType|
 |-----------------|----------------|---------------------|---------------------|
 |bruno            |SQL_LOGIN       |sa                   |SQL_LOGIN            |
+
+### Impersonation - The problem(https://blog.improsec.com/tech-blog/dangers-mssql-features-impersonation-amp-links)
+* You might have already guessed it. The problem is that you might not know exactly what permissions you acquire when using impersonation. Building on the example above, exactly which permissions does recipeadmin have? Might it have permissions on other databases, not intended for recipeuser to access? Might it even have administrative permissions on the SQL server itself?
+#### Privilege Creep
+* This can happen when people change positions internally, and the permissions from the old position aren’t revoked when the change takes effect. Over time, this can accumulate and too many privileges are held. This can be combatted by implementing an Identity Governance model with periodic attestation of permissions.
+
+How is this related to impersonation? Well, what happens when recipeadmin obtains new permissions? Recipeuser inherits them through the impersonation privilege, which isn’t necessarily intended
 
 ### Data types
 ![](https://www.mssqltips.com/tipimages2/6874_cast-sql-function.002.png)
