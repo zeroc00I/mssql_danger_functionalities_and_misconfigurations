@@ -65,12 +65,20 @@ https://www.mssqltips.com/sqlservertip/6422/sql-server-concepts/
 
 #### Grant permissions from user A to user B
 
+* The authentication login is the entity that grants access to the server
 ```
 CREATE LOGIN bruno WITH PASSWORD = 'Test@4567';
 ```
-
+* The database user is the entity used to control access and permissions within a specific database
 ```
 CREATE USER bruno FOR LOGIN bruno;
+```
+
+```
+ALTER ROLE public ADD MEMBER bruno;
+```
+```
+EXEC sp_addrolemember 'public', 'bruno';
 ```
 
 * List users that can be impersonated
