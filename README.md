@@ -130,8 +130,25 @@ Result
 ```
 * Note: "JSON PATH" is frequently referenced, but it is most commonly used when constructing a query and you want to specify how the JSON output will be formatted.
 
-### Thoughts and Workflow made by msdat(https://github.com/quentinhardy/msdat)
-* 
+### Thoughts and Workflow made by MSDAT, good to do a checklist (msdat: https://github.com/quentinhardy/msdat)
+* Can the current user become sysadmin with trustworthy database method?
+* You can steal hashed passwords?
+* Can we execute system commands with xpcmdshell (directly)?
+* Can we re-enable xpcmdshell to use xpcmdshell?
+* Can you use SQL Server Agent Stored Procedures (jobs) to execute system commands?
+* Can you capture a SMB authentication?
+* Can you use OLE Automation to read files?
+* Can you use OLE Automation to write files?
+* Can you use OLE Automation to execute Windows system commands?
+* Can you use Bulk Insert to read files?
+* Can you use Openrowset to read files?
+* Can you connect to remote databases with openrowset? (useful for dictionary attacks)
+* Can you list files with xp_dirtree?
+* Can you list directories with xp_subdirs?
+* Can you list drives with xp_subdirs?
+* Can you list medias with xp_availablemedia?
+* Can you check if a file exist thanks to xp_fileexist?
+* Can you create a folder with xp_createsubdir?
 
 ### Create a stored procedure in every databases
 ```
@@ -178,16 +195,14 @@ Response
 <name>master</name><dbid>1</dbid><sid>AQ==</sid><mode>0</mode><status>65544</status><status2>
 ```
 
-## Inspired by
-* https://blog.improsec.com/tech-blog/dangers-mssql-features-impersonation-amp-links
-* https://www.madeiradata.com/post/how-to-protect-sql-server-from-hackers-and-penetration-tests
-
 ## Resources
 * https://www.sqlservertutorial.net/
 * https://github.com/ktaranov/sqlserver-kit
 * https://github.com/quentinhardy/msdat
 * https://blog.improsec.com/tech-blog/dangers-mssql-features-impersonation-amp-links
 * https://web.archive.org/web/20220331031141/https://www.allenkinsel.com/archive/2013/12/finding-impersonation-info-in-sql-server/
+* https://blog.improsec.com/tech-blog/dangers-mssql-features-impersonation-amp-links
+* https://www.madeiradata.com/post/how-to-protect-sql-server-from-hackers-and-penetration-tests
 
 ## Local Lab
 Docker instance
