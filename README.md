@@ -48,11 +48,11 @@ When you use **double quotes**, SQL Server treats them as **delimiters for objec
 Therefore, the DB_NAME function correctly receives the string "1" as an argument. **If you attempt to use double quotes, SQL Server will interpret it as an object identifier**, resulting in an error.
 
 ### Structure
-Master – All system objects to run the active relational database management system
-Model – Template database for new user defined databases and Tempdb when SQL Server starts
-TempDB – Stores all temporary objects such as #temp tables, ##temp tables, hash and sort records, etc.
-MSDB – Stores all SQL Server Agent related tables and stored procedures
-ResourceDB – Hidden and read-only database that includes all system objects
+* Master – All system objects to run the active relational database management system
+* Model – Template database for new user defined databases and Tempdb when SQL Server starts
+* TempDB – Stores all temporary objects such as #temp tables, ##temp tables, hash and sort records, etc.
+* MSDB – Stores all SQL Server Agent related tables and stored procedures
+* ResourceDB – Hidden and read-only database that includes all system objects
 
 https://www.mssqltips.com/sqlservertip/6422/sql-server-concepts/
 
