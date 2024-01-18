@@ -130,6 +130,16 @@ Result
 ```
 * Note: "JSON PATH" is frequently referenced, but it is most commonly used when constructing a query and you want to specify how the JSON output will be formatted.
 
+* STRING_AGG(TABLE_NAME,DELIMITER)
+
+```
+SELECT STRING_AGG(name, ',') FROM sys.databases
+```
+Response:
+```
+master,tempdb,model,msdb
+```
+
 ### Thoughts and Workflow made by MSDAT, good to do a checklist (msdat: https://github.com/quentinhardy/msdat)
 * Can the current user become sysadmin with trustworthy database method?
 * You can steal hashed passwords?
@@ -179,8 +189,6 @@ Response:
 ```
 select text from sys.dm_exec_requests cross apply sys.dm_exec_sql_text(sql_handle)
 ```
-### STRING_AGG(TABLE_NAME,DELIMITER)
-* WIP
 
 **CAUTION**
 The following query should be executed with caution as it has the potential to impact the performance of MSSQL, depending on the size of the table entries returned. It is recommended to run it only when there is confidence that the returned row isn't excessively long.
