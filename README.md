@@ -179,6 +179,8 @@ Response:
 ```
 select text from sys.dm_exec_requests cross apply sys.dm_exec_sql_text(sql_handle)
 ```
+### STRING_AGG(TABLE_NAME,DELIMITER)
+* WIP
 
 **CAUTION**
 The following query should be executed with caution as it has the potential to impact the performance of MSSQL, depending on the size of the table entries returned. It is recommended to run it only when there is confidence that the returned row isn't excessively long.
