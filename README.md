@@ -39,23 +39,6 @@ Host: hack-yourself-first.com
 ```
 ## Concepts
 
-### Double and single quotes are treated differently in MSSQL
-
-The reason why ```SELECT DB_NAME('1')``` works and ```SELECT DB_NAME("1")``` does not work is that double quotes are not interpreted the same way as single quotes in SQL Server.
-
-When you use **double quotes**, SQL Server treats them as **delimiters for object identifiers, not as string delimiters**. In the case of the **DB_NAME function, it expects a string as an argument**, and this string should be delimited by single quotes.
-
-Therefore, the DB_NAME function correctly receives the string "1" as an argument. **If you attempt to use double quotes, SQL Server will interpret it as an object identifier**, resulting in an error.
-
-### Structure
-* Master – All system objects to run the active relational database management system
-* Model – Template database for new user defined databases and Tempdb when SQL Server starts
-* TempDB – Stores all temporary objects such as #temp tables, ##temp tables, hash and sort records, etc.
-* MSDB – Stores all SQL Server Agent related tables and stored procedures
-* ResourceDB – Hidden and read-only database that includes all system objects
-
-https://www.mssqltips.com/sqlservertip/6422/sql-server-concepts/
-
 ### How MSSQL deal with login hash (https://www.linkedin.com/pulse/ms-sql-passwordhash-hash-p%C3%A9ter-kov%C3%A1cs/)
 
 * The MS SQL Server builds (concatenate) the password_hash from three parts:
@@ -73,11 +56,19 @@ SET @hash = 0x0200 + @salt + HASHBYTES('SHA2_512', CAST(@pwd AS VARBINARY(MAX)) 
 ```
 > When a user try to log in with local sql account, the SQL Server can rebuild the raw hash with the original salt, because it's stored in plaintext in the password_hash, eight characters after the 0x0200 prefix. If the password is correct the rebuilt password_hash matches the stored version.
 
-#### How permissions works
+### How permissions works
 * The primary identity is the login itself. The secondary identity includes permissions inherited from roles and groups.
 * Every database user belongs to the public database role. When a user has not been granted or denied specific permissions on a securable, the user inherits the permissions granted to public on that securable. (https://learn.microsoft.com/en-us/previous-versions/sql/sql-server-2008-r2/ms181127(v=sql.105))
 
-#### SQL Link
+### Double and single quotes are treated differently in MSSQL
+
+The reason why ```SELECT DB_NAME('1')``` works and ```SELECT DB_NAME("1")``` does not work is that double quotes are not interpreted the same way as single quotes in SQL Server.
+
+When you use **double quotes**, SQL Server treats them as **delimiters for object identifiers, not as string delimiters**. In the case of the **DB_NAME function, it expects a string as an argument**, and this string should be delimited by single quotes.
+
+Therefore, the DB_NAME function correctly receives the string "1" as an argument. **If you attempt to use double quotes, SQL Server will interpret it as an object identifier**, resulting in an error.
+
+### SQL Link
 * A SQL link from one SQL server to another simply enables you to perform queries against it. This is valuable if you need to collect and present data stored in multiple databases spread over multiple SQL servers (https://blog.improsec.com/tech-blog/dangers-mssql-features-impersonation-amp-links).
 
 #### Grant permissions from user A to user B
@@ -110,10 +101,19 @@ Result:
 
 ### Impersonation - The problem(https://blog.improsec.com/tech-blog/dangers-mssql-features-impersonation-amp-links)
 * You might have already guessed it. The problem is that you might not know exactly what permissions you acquire when using impersonation. Building on the example above, exactly which permissions does recipeadmin have? Might it have permissions on other databases, not intended for recipeuser to access? Might it even have administrative permissions on the SQL server itself?
-#### Privilege Creep
+### Privilege Creep
 * This can happen when people change positions internally, and the permissions from the old position aren’t revoked when the change takes effect. Over time, this can accumulate and too many privileges are held. This can be combatted by implementing an Identity Governance model with periodic attestation of permissions.
 
 How is this related to impersonation? Well, what happens when recipeadmin obtains new permissions? Recipeuser inherits them through the impersonation privilege, which isn’t necessarily intended
+
+## Structure
+* Master – All system objects to run the active relational database management system
+* Model – Template database for new user defined databases and Tempdb when SQL Server starts
+* TempDB – Stores all temporary objects such as #temp tables, ##temp tables, hash and sort records, etc.
+* MSDB – Stores all SQL Server Agent related tables and stored procedures
+* ResourceDB – Hidden and read-only database that includes all system objects
+
+https://www.mssqltips.com/sqlservertip/6422/sql-server-concepts/
 
 ### Data types
 ![](https://www.mssqltips.com/tipimages2/6874_cast-sql-function.002.png)
