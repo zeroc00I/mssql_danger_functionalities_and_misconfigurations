@@ -59,9 +59,9 @@ https://www.mssqltips.com/sqlservertip/6422/sql-server-concepts/
 ### How MSSQL deal with login hash (https://www.linkedin.com/pulse/ms-sql-passwordhash-hash-p%C3%A9ter-kov%C3%A1cs/)
 
 * The MS SQL Server builds (concatenate) the password_hash from three parts:
-1. 0x0200 - a fixed prefix value, it means the version of the used hash algorythm, since SQL Server 2012 it's SHA2_512
-2. salt - a 32 bit pseudo-random generated value, which provides every generation will result different password_hash
-3. the real (raw) hash value of the concatenated plaintext password and the salt
+> 1. 0x0200 - a fixed prefix value, it means the version of the used hash algorythm, since SQL Server 2012 it's SHA2_512
+> 2. salt - a 32 bit pseudo-random generated value, which provides every generation will result different password_hash
+> 3. the real (raw) hash value of the concatenated plaintext password and the salt
 
 * These four lines represent the password_hash generation method:
 ```
