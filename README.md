@@ -56,6 +56,23 @@ Therefore, the DB_NAME function correctly receives the string "1" as an argument
 
 https://www.mssqltips.com/sqlservertip/6422/sql-server-concepts/
 
+### How MSSQL deal with login hash (https://www.linkedin.com/pulse/ms-sql-passwordhash-hash-p%C3%A9ter-kov%C3%A1cs/)
+
+* The MS SQL Server builds (concatenate) the password_hash from three parts:
+1. 0x0200 - a fixed prefix value, it means the version of the used hash algorythm, since SQL Server 2012 it's SHA2_512
+2. salt - a 32 bit pseudo-random generated value, which provides every generation will result different password_hash
+3. the real (raw) hash value of the concatenated plaintext password and the salt
+
+* These four lines represent the password_hash generation method:
+```
+DECLARE @pwd NVARCHAR(MAX) = 'plaintext-password';
+DECLARE @salt VARBINARY(4) = CRYPT_GEN_RANDOM(4);
+DECLARE @hash VARBINARY(MAX);
+
+SET @hash = 0x0200 + @salt + HASHBYTES('SHA2_512', CAST(@pwd AS VARBINARY(MAX)) + @salt);
+```
+> When a user try to log in with local sql account, the SQL Server can rebuild the raw hash with the original salt, because it's stored in plaintext in the password_hash, eight characters after the 0x0200 prefix. If the password is correct the rebuilt password_hash matches the stored version.
+
 #### How permissions works
 * The primary identity is the login itself. The secondary identity includes permissions inherited from roles and groups.
 * Every database user belongs to the public database role. When a user has not been granted or denied specific permissions on a securable, the user inherits the permissions granted to public on that securable. (https://learn.microsoft.com/en-us/previous-versions/sql/sql-server-2008-r2/ms181127(v=sql.105))
