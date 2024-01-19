@@ -239,48 +239,53 @@ Response
 ```
 ## How MSSQL checks if current user has permissions to execute some querie (Step by Step):
 1. Authentication:
-
 > When a user attempts to connect to SQL Server, the server checks the sys.server_principals and sys.sql_logins system views.
+>
 > These views contain information about server-level principals (logins and users) and their authentication properties.
+>
 > Authentication involves validating the user's credentials, such as username and password, against the entries in these system views.
+>
 > The sys.server_principals view, for example, includes columns like name (login or user name) and type_desc (indicating whether it's a SQL login or Windows login).
 
 2. Authorization (Server-Level):
-
 > The server checks server-level permissions by querying the sys.server_role_members and sys.server_principals system views.
+>
 > The sys.server_role_members view lists the members of server roles, and sys.server_principals provides details about server-level principals.
+>
 > Server roles define sets of permissions, and the server verifies whether the user is a member of any roles that have the necessary permissions.
 
 3.Database Selection:
 
 > The server checks the existence of the selected database by querying the sys.databases system view.
 The sys.databases view contains information about all databases on the server, and the server ensures that the chosen database exists and is accessible to the user.
-Database User Mapping:
+
+4. Database User Mapping:
 > The server maps the authenticated login to a database user using the sys.database_principals and sys.database_role_members system views.
 sys.database_principals contains information about database users, and sys.database_role_members identifies the roles associated with the database user.
+>
 > The mapping ensures that the user has a corresponding identity within the selected database.
 
-4. Role Membership:
-
+5. Role Membership:
 > The server checks database-level roles and their memberships using sys.database_role_members and sys.database_principals.
+>
 > Database roles define sets of permissions within a specific database, and the server verifies whether the user is a member of any roles that grant the necessary permissions.
 
-5. Object-Level Permissions:
-
+6. Object-Level Permissions:
 > The server examines object-level permissions by querying the sys.objects and sys.database_permissions system views.
 sys.objects provides information about the objects (e.g., tables, views), and sys.database_permissions contains details about the permissions granted on those objects.
+>
 > The server checks if the user has the required permissions (e.g., SELECT, INSERT) on the objects referenced in the query.
 
-6. Ownership Chaining:
-
+7. Ownership Chaining:
 > Ownership chaining involves checking ownership of objects, typically managed through sys.objects (for object ownership) and sys.schemas (for schema ownership).
+>
 > If a user has permissions on a stored procedure or view, and that object references a table, ownership chaining allows access to the table without requiring explicit permissions on the table.
 
-7. Effective Permissions:
-
+8. Effective Permissions:
 > The server calculates effective permissions by using functions like fn_my_permissions and querying sys.database_permissions.
 fn_my_permissions provides information about the permissions the user has on a specific securable, and sys.database_permissions contains details about all database permissions.
-Query Execution:
+
+9. Query Execution:
 > If all permission checks pass, the server proceeds with query execution.
 If there are insufficient permissions, the user receives an error indicating the nature of the permission violation.
 
