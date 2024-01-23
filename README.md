@@ -260,7 +260,10 @@ CREATE PROCEDURE IMDATELOHJOSUUSOOJAHMSAT WITH EXECUTE AS OWNER AS EXEC sp_addsr
 ## Useful Queries
 ### List all roles
 ```
-Select [name] From sysusers
+-- List all roles in the current database
+SELECT name AS 'Role Name'
+FROM sys.database_principals
+WHERE type_desc = 'DATABASE_ROLE';
 ```
 ### Check the current context and who owns each database available:
 ```
