@@ -260,7 +260,12 @@ CREATE PROCEDURE IMDATELOHJOSUUSOOJAHMSAT WITH EXECUTE AS OWNER AS EXEC sp_addsr
 ## Useful Queries
 ### List all roles
 ```
-Select [name] From sysusers Where issqlrole = 1
+Select [name] From sysusers
+```
+### Check the current context and who owns each database available:
+```
+SELECT name AS 'Current Database', SUSER_SNAME() AS 'Current User', SUSER_SNAME(owner_sid) AS 'Database Owner'
+FROM sys.databases
 ```
 ### Read localfile through errors
 ```
