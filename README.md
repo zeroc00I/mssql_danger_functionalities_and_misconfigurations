@@ -68,6 +68,11 @@ When you use **double quotes**, SQL Server treats them as **delimiters for objec
 
 Therefore, the DB_NAME function correctly receives the string "1" as an argument. **If you attempt to use double quotes, SQL Server will interpret it as an object identifier**, resulting in an error.
 
+### "SELECT * FROM sysdatabases" works as "SELECT * FROM sys.databases" (With dots), why?
+* The reason you can query "SELECT * FROM sysdatabases" without a dot is likely because you are using SQL Server Transact-SQL syntax that is compatible with older versions of SQL Server (SQL Server 2000 and earlier).
+* In older versions of SQL Server, the system tables, such as "sysdatabases," were stored in the master database, and there was no need to use a dot (.) to specify the schema. Therefore, queries like "SELECT * FROM sysdatabases" were common in those versions.
+* However, in more recent versions of SQL Server (SQL Server 2005 and onwards), the system views were introduced to replace the older system tables, and they are typically stored in the "sys" schema. As a result, the correct syntax for querying system views in newer versions is to use the "sys" schema, as in "SELECT * FROM sys.databases."
+
 ### SQL Link
 * A SQL link from one SQL server to another simply enables you to perform queries against it. This is valuable if you need to collect and present data stored in multiple databases spread over multiple SQL servers (https://blog.improsec.com/tech-blog/dangers-mssql-features-impersonation-amp-links).
 
