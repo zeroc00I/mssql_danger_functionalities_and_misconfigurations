@@ -167,19 +167,19 @@ master,tempdb,model,msdb
 
 ### Views and stored procedures
 * Object such as stored procedures and views can references other objects
-• If object owner of both objects are the same
-  • Permissions are not checked on the referenced objects
-  • SQL Server assumes object owner would not reference objects that unless owner meant it
-• Referred to as ownership chaining
+* If object owner of both objects are the same
+  * Permissions are not checked on the referenced objects
+  * SQL Server assumes object owner would not reference objects that unless owner meant it
+* Referred to as ownership chaining
 
 ### Cross-database ownership
-• If sa login is the database owner of a database, then sa login is mapped to the dbo user
-• All users granted the db_owner role can create objects and designate them as owned by dbo
-• What happens when
-  • A view or stored procedure references object in a different
+* If sa login is the database owner of a database, then sa login is mapped to the dbo user
+* All users granted the db_owner role can create objects and designate them as owned by dbo
+* What happens when
+  * A view or stored procedure references object in a different
 database
-  • View or procedure is owned by dbo
-  • Object is owned by a different dbo in a different database
+  * View or procedure is owned by dbo
+  * Object is owned by a different dbo in a different database
 * Test this concept
 ```
 use testdatabase
@@ -188,23 +188,23 @@ select * from master.dbo.sysxlogins
 go
 exec test
 ```
-• Guess what – it works!!!
-• Retrieves sysxlogin from master database
+* Guess what – it works!!!
+* Retrieves sysxlogin from master database
 
 #### Why does this work?
-• SQL Server performs access control by
-  • Checking permissions on stored procedures first
-  • Gets the SID (0x01 sa SID) of the user (dbo) in the current database that owns the stored procedure
-• Compares the SID with the SIDs of the owners of the objects referenced in the stored procedure
-• Because the SID of the owner of the stored procedure match the SID of the owner of the objects referenced in the stored procedure - it works!!!
-• Access controls not designed to handle a user:
-  • Granted the db_owner role but is not the dbo
-  • Is not a member of sysadmin role
-  • That creates a stored procedure as the dbo user
-  • Doesn’t have permissions in objects referenced in the SP
-• Applies to views, triggers and user defined functions
-• Any db_owner can impersonate sa when sa is dbo
-• Also works when using Windows Authentication
+* SQL Server performs access control by
+  * Checking permissions on stored procedures first
+  * Gets the SID (0x01 sa SID) of the user (dbo) in the current database that owns the stored procedure
+* Compares the SID with the SIDs of the owners of the objects referenced in the stored procedure
+* Because the SID of the owner of the stored procedure match the SID of the owner of the objects referenced in the stored procedure - it works!!!
+* Access controls not designed to handle a user:
+  * Granted the db_owner role but is not the dbo
+  * Is not a member of sysadmin role
+  * That creates a stored procedure as the dbo user
+  * Doesn’t have permissions in objects referenced in the SP
+* Applies to views, triggers and user defined functions
+* Any db_owner can impersonate sa when sa is dbo
+* Also works when using Windows Authentication
 
 ### Thoughts and Workflow made by MSDAT, good to do a checklist (msdat: https://github.com/quentinhardy/msdat)
 * Can the current user become sysadmin with trustworthy database method?
